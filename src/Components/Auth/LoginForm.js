@@ -31,7 +31,7 @@ const LoginForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="text-center">Login</h2>
+        <h2>Login</h2>
 
         <StyledFormGroup>
           <StyledLabel htmlFor="email">
@@ -58,7 +58,7 @@ const LoginForm = () => {
           />
         </StyledFormGroup>
         <StyledFormGroup>
-          <StyledLabel htmlFor="email">
+          <StyledLabel htmlFor="password">
             Password <StyledAsterisk className="text-alert">*</StyledAsterisk>
           </StyledLabel>
           <StyledLink to="/password_reset" className="text-right">
@@ -87,7 +87,7 @@ const LoginForm = () => {
           />
         </StyledFormGroup>
         <StyledButton>
-          {isSigningIn ? <CircularProgress sx={{ color: "#fff" }} /> : "Submit"}
+          {isSigningIn ? <CircularProgress sx={{ color: "#fff" }} /> : "Login"}
         </StyledButton>
       </form>
     </div>

@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export const StyledFormGroup = styled("div")`
-  width: 350px ;
+  width: 100% ;
   margin: 0px auto 20px auto;
   text-align: left;
 `
@@ -18,24 +18,26 @@ export const StyledAsterisk = styled('span')`
 `
 
 export const StyledLink = styled(Link)(({ theme, color = "#6065D8" }) => ({
-    fontWeight: 300,
-    fontSize: "12px",
-    lineHeight: "21px",
-    color: "#6065D8",
-    textDecoration: "none",
-    textAlign: "right",
+  fontWeight: 300,
+  fontSize: "12px",
+  lineHeight: "21px",
+  color: "#6065D8",
+  textDecoration: "none",
+  textAlign: "right",
 }));
 
 export const StyledButton = styled('button')(({ theme, color = "#6065D8" }) => ({
-    backgroundColor: color,
-    width: 350,
-    height: 50,
-    borderRadius: '8px',
-    fontWeight: 500,
-    fontSize: '16px',
-    lineHeight: '24px',
-    color: '#FFFFFF',
-    border: 'none',
-    cursor: 'pointer',
-    marginTop: '10px',
+  backgroundColor: color,
+  width: '100%',
+  height: 50,
+  borderRadius: '8px',
+  fontWeight: 500,
+  fontSize: '16px',
+  lineHeight: '24px',
+  color: '#FFFFFF',
+  border: 'none',
+  cursor: 'pointer',
+  marginTop: '10px',
+  alignItems: 'center',
+  paddingRight: '10px',
 }));

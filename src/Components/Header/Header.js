@@ -13,12 +13,16 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import './Header.css';
+import LoginModal from '../Auth/LoginModal';
+import SignUpModal from '../Auth/SignUpModal';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const [openLogin, setOpenLogin] = React.useState(false);
+    const [openSignUp, setOpenSignUp] = React.useState(false);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -34,11 +38,16 @@ function ResponsiveAppBar() {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+    const handleLogin = () => {
+        setOpenLogin(true)
+    }
 
-    
+    const handleSignUp = () => {
+        setOpenSignUp(true)
+    }
 
     return (
-        <AppBar className='navbar-bg'>
+        <AppBar className='navbar-bg' >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -93,10 +102,10 @@ function ResponsiveAppBar() {
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center" href="/">About us</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}>
+                            <MenuItem onClick={handleSignUp}>
                                 <Typography textAlign="center" href="/">Sign up</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseNavMenu}>
+                            <MenuItem onClick={handleLogin}>
                                 <Typography textAlign="center" href="/login">Login</Typography>
                             </MenuItem>
                         </Menu>
@@ -130,13 +139,13 @@ function ResponsiveAppBar() {
                             About us
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={handleSignUp}
                             sx={{ my: 3, mx: 2, color: 'white', display: 'block' }}
                         >
                             Sign up
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={handleLogin}
                             sx={{ my: 3, mx: 2, color: 'white', display: 'block' }}
                         >
                             Login
@@ -170,6 +179,8 @@ function ResponsiveAppBar() {
                         </Menu>
                     </Box>
                 </Toolbar>
+                <LoginModal openLogin={openLogin} setLoginOpen={setOpenLogin} />
+                <SignUpModal openSignUp={openSignUp} setSignUpOpen={setOpenSignUp} />
             </Container>
         </AppBar>
     );
