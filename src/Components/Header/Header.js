@@ -134,19 +134,19 @@ function ResponsiveAppBar() {
                     <Box sx={{ flexGrow: 1, justifyContent: 'flex-end', display: { xs: 'none', md: 'flex' } }}>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{ my: 3, mx: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
                         >
                             About us
                         </Button>
                         <Button
                             onClick={handleSignUp}
-                            sx={{ my: 3, mx: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
                         >
                             Sign up
                         </Button>
                         <Button
                             onClick={handleLogin}
-                            sx={{ my: 3, mx: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
                         >
                             Login
                         </Button>

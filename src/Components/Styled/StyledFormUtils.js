@@ -41,3 +41,7 @@ export const StyledButton = styled('button')(({ theme, color = "#6065D8" }) => (
   alignItems: 'center',
   paddingRight: '10px',
 }));
+
+
+
+

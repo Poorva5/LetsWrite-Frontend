@@ -2,8 +2,9 @@ import './App.css';
 import store from './store/store'
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Login from './Pages/Login';
 import Header from './Components/Header/Header';
+import Blog from './Pages/Blog/Blog';
+
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/"></Route>
-            <Route path="/login" element={<Login />}></Route>
+            <Route path="/create-blog" element={<Blog />}></Route>
           </Routes>
         </BrowserRouter>
       </Provider>
