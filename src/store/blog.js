@@ -11,6 +11,8 @@ const blogSlice = createSlice({
         addBlog: (state, action) => {
             state.push(action.payload)
         }
+
+        
     }
 
 })

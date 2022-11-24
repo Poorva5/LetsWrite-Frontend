@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './Components/Header/Header';
 import Blog from './Pages/Blog/Blog';
+import Blogs from './Components/Blog/Blogs';
+import BlogDetails from './Components/Blog/BlogDetail';
 
 
 function App() {
@@ -13,8 +15,9 @@ function App() {
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route path="/"></Route>
+            <Route path="/" element={<Blogs />}></Route>
             <Route path="/create-blog" element={<Blog />}></Route>
+            <Route path="/details" element={<BlogDetails />}></Route>
           </Routes>
         </BrowserRouter>
       </Provider>
