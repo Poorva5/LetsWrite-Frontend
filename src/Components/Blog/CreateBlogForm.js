@@ -34,8 +34,6 @@ const StyledButton = styled('button')(({ theme, color = "#6065D8" }) => ({
 }));
 
 
-
-
 const BlogForm = () => {
     const { control, handleSubmit } = useForm({
         defaultValues: {
