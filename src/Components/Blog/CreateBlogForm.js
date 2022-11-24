@@ -48,8 +48,8 @@ const BlogForm = () => {
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
                 <h1>Create blog</h1>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', }}>
-                    <StyledButton type="submit">Publish</StyledButton>
-                    <StyledButton type="submit">Save As Draft</StyledButton>
+                    <StyledButton type="submit"> Publish </StyledButton>
+                    <StyledButton type="submit"> Save As Draft </StyledButton>
                 </div>
                 <StyledInputDiv>
                     <Controller
