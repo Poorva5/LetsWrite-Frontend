@@ -6,6 +6,7 @@ import Header from './Components/Header/Header';
 import Blog from './Pages/Blog/Blog';
 import Blogs from './Components/Blog/Blogs';
 import BlogDetails from './Components/Blog/BlogDetail';
+import UserProfile from './Components/Auth/UserProfile';
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
             <Route path="/" element={<Blogs />}></Route>
             <Route path="/create-blog" element={<Blog />}></Route>
             <Route path="/details" element={<BlogDetails />}></Route>
+            <Route path="/details" element={<BlogDetails />}></Route>
+            <Route path="/profile" element={<UserProfile />}></Route>
           </Routes>
         </BrowserRouter>
       </Provider>

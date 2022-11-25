@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,6 +24,7 @@ function ResponsiveAppBar() {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const [openLogin, setOpenLogin] = React.useState(false);
     const [openSignUp, setOpenSignUp] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -33,6 +35,10 @@ function ResponsiveAppBar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+    };
+
+    const navigateToProfile = () => {
+        navigate('/profile');
     };
 
     const handleCloseUserMenu = () => {
@@ -152,7 +158,7 @@ function ResponsiveAppBar() {
                         </Button>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 5 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" href="/profile" />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -171,11 +177,18 @@ function ResponsiveAppBar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {/* {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
+
+                            <MenuItem key={""} onClick={navigateToProfile}>
+                                <Typography textAlign="center">{settings[0]}</Typography>
+                            </MenuItem>
+                            <MenuItem key={""} onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">{settings[3]}</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>
