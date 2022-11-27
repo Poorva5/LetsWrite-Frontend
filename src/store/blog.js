@@ -15,16 +15,13 @@ const { createSlice } = require("@reduxjs/toolkit");
 const blogSlice = createSlice({
 
     name: 'blog',
-
     initialState: {
         post: {},
         postList: [],
         isLoading: false,
         fetchingList: []
     },
-
     reducers: {
-
         addBlog: (state, action) => {
             state.push(action.payload)
         },
@@ -37,9 +34,7 @@ const blogSlice = createSlice({
         setLoading: (state, action) => {
             state.isLoading = !state.isLoading
         }
-
     }
-
 })
 
 export const { addBlog, setBlog, setBlogs, setLoading } = blogSlice.actions;
@@ -59,7 +54,7 @@ export function fetchBlogList(data) {
             console.log(res.data)
             dispatch(setBlogs(res.data))
             dispatch(setLoading());
-            window.location.href = '/'
+
         } catch (err) {
             dispatch(setLoading());
         }
@@ -67,7 +62,7 @@ export function fetchBlogList(data) {
 
 }
 
-export function fetchBLog(id) {
+export function fetchBlog(id) {
     return async function fetchBlogThunk(
         dispatch,
         getState
@@ -80,7 +75,28 @@ export function fetchBLog(id) {
             console.log(res.data)
             dispatch(setBlog(res.data))
             dispatch(setLoading());
-            window.location.href = '/'
+        } catch (err) {
+            dispatch(setLoading());
+        }
+    };
+
+}
+
+export function createBlog(data) {
+    return async function fetchBlogThunk(
+        dispatch,
+        getState
+    ) {
+        dispatch(setLoading());
+        try {
+            const res = await apiWithToken.post(
+                `/api/post/create/`,
+                (data = data)
+            );
+            console.log(res.data)
+            // dispatch(setBlog(res.data))
+            window.location.href = `/details/${res.data.id}`
+            dispatch(setLoading());
         } catch (err) {
             dispatch(setLoading());
         }

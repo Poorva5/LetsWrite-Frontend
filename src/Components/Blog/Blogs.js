@@ -14,7 +14,7 @@ const renderBloglist = (blogList) => {
 }
 const Blogs = () => {
     const dispatch = useDispatch();
-    const {postList, isLoading}= useSelector(state=>state.blog);
+    const { postList, isLoading } = useSelector(state => state.blog);
 
     const blogPosts = [
         {
@@ -89,17 +89,16 @@ const Blogs = () => {
         },
 
     ];
-
+    
     useEffect(() => {
         dispatch(fetchBlogList())
-    })
+    }, [])
 
     return (
-        <div style={{ marginTop: '140px' }}>
+        <div style={{ margin: '150px 150px' }}>
             {isLoading ? <h1> Loading...</h1> : (
                 renderBloglist(postList)
             )}
-
         </div>
     )
 }

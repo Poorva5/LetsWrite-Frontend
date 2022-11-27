@@ -2,7 +2,10 @@ import { useForm, Controller } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import { styled } from "@mui/material";
 import TextareaAutosize from '@mui/material/TextareaAutosize';
-
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createBlog } from "../../store/blog";
+import { useDispatch } from "react-redux";
 const StyledForm = styled('form')(({ theme, color = "#6065D8" }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -33,40 +36,67 @@ const StyledButton = styled('button')(({ theme, color = "#6065D8" }) => ({
     marginLeft: '10px'
 }));
 
+const schema = yup.object().shape({
+    title: yup.string().required(),
+    body: yup.string().required(),
+})
+
 
 const BlogForm = () => {
-    const { control, handleSubmit } = useForm({
-        defaultValues: {
-            title: '',
-            content: '',
-        }
+    const { control, handleSubmit, formState: { errors }, } = useForm({
+        resolver: yupResolver(schema),
     });
-    const onSubmit = data => console.log(data);
 
+    const dispatch = useDispatch()
+
+    const onSubmit = data => {
+        console.log(data, 'log')
+        dispatch(createBlog(data))
+    };
     return (
         <div style={{ marginTop: '100px', marginLeft: '50px', marginRight: '50px' }} >
             <StyledForm onSubmit={handleSubmit(onSubmit)}>
                 <h1>Create blog</h1>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', }}>
                     <StyledButton type="submit"> Publish </StyledButton>
-                    <StyledButton type="submit"> Save As Draft </StyledButton>
+                    {/* <StyledButton type="submit"> Save As Draft </StyledButton> */}
                 </div>
                 <StyledInputDiv>
                     <Controller
                         name="title"
                         control={control}
-                        render={({ field }) => <TextField id="standard-basic" label="Title" variant="standard" style={{ width: '100%' }} />}
+                        render={({ field }) => <TextField
+                            type="title"
+                            fullWidth
+                            {...field}
+                            placeholder={"Enter title here"}
+                            size="small"
+                            value={field.value}
+                            error={!!errors.title}
+                            helperText={errors.title ? errors.title?.message : ""}
+                            sx={{
+                                "& legend": { display: "none" },
+                                "& fieldset": { top: 0 },
+                            }}
+                        />}
                     />
                 </StyledInputDiv>
                 <StyledInputDiv>
                     <Controller
-                        name="content"
+                        name="body"
                         control={control}
                         render={({ field }) => <TextareaAutosize
                             aria-label="empty textarea"
                             minRows={30}
-                            placeholder="Content"
+                            {...field}
+                            placeholder={"Enter content here"}
                             style={{ width: '100%' }}
+                            error={!!errors.title}
+                            helperText={errors.title ? errors.title?.message : ""}
+                            sx={{
+                                "& legend": { display: "none" },
+                                "& fieldset": { top: 0 },
+                            }}
                         />}
                     />
                 </StyledInputDiv>
