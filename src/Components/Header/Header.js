@@ -16,6 +16,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import './Header.css';
 import LoginModal from '../Auth/LoginModal';
 import SignUpModal from '../Auth/SignUpModal';
+import { useDispatch, useSelector } from "react-redux";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -52,6 +53,13 @@ function ResponsiveAppBar() {
         setOpenSignUp(true)
     }
 
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken');
+        window.location.href = '/'
+    };
+
+    const token = localStorage.getItem('accessToken');
+
     return (
         <AppBar className='navbar-bg' >
             <Container maxWidth="xl">
@@ -61,7 +69,7 @@ function ResponsiveAppBar() {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/"
+                        onClick={() => { navigate('/') }}
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -70,6 +78,7 @@ function ResponsiveAppBar() {
                             letterSpacing: '.3rem',
                             color: 'inherit',
                             textDecoration: 'none',
+                            cursor: 'pointer'
                         }}
                     >
                         BLOG
@@ -108,12 +117,17 @@ function ResponsiveAppBar() {
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center" href="/">About us</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleSignUp}>
-                                <Typography textAlign="center" href="/">Sign up</Typography>
-                            </MenuItem>
-                            <MenuItem onClick={handleLogin}>
-                                <Typography textAlign="center" href="/login">Login</Typography>
-                            </MenuItem>
+                            {token ? null : (
+                                <div>
+                                    <MenuItem onClick={handleSignUp}>
+                                        <Typography textAlign="center" href="/">Sign up</Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleLogin}>
+                                        <Typography textAlign="center" href="/login">Login</Typography>
+                                    </MenuItem>
+                                </div>
+                            )}
+
                         </Menu>
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -144,52 +158,60 @@ function ResponsiveAppBar() {
                         >
                             About us
                         </Button>
-                        <Button
-                            onClick={handleSignUp}
-                            sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
-                        >
-                            Sign up
-                        </Button>
-                        <Button
-                            onClick={handleLogin}
-                            sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
-                        >
-                            Login
-                        </Button>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 5 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" href="/profile" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {/* {settings.map((setting) => (
+
+                        {token ? (
+                            <>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 5 }}>
+                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" href="/profile" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    {/* {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))} */}
 
-                            <MenuItem key={""} onClick={navigateToProfile}>
-                                <Typography textAlign="center">{settings[0]}</Typography>
-                            </MenuItem>
-                            <MenuItem key={""} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center">{settings[3]}</Typography>
-                            </MenuItem>
-                        </Menu>
+                                    <MenuItem key={""} onClick={navigateToProfile}>
+                                        <Typography textAlign="center">{settings[0]}</Typography>
+                                    </MenuItem>
+                                    <MenuItem key={""} onClick={handleLogout}>
+                                        <Typography textAlign="center">{settings[3]}</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    onClick={handleSignUp}
+                                    sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
+                                >
+                                    Sign up
+                                </Button>
+                                <Button
+                                    onClick={handleLogin}
+                                    sx={{ my: 3, mx: 2, color: 'white', display: 'block', textTransform: 'capitalize', fontSize: '18px' }}
+                                >
+                                    Login
+                                </Button>
+                            </>
+                        )}
                     </Box>
                 </Toolbar>
                 <LoginModal openLogin={openLogin} setLoginOpen={setOpenLogin} />

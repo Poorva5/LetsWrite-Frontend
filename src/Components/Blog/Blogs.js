@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Blog from './Blog';
+import { fetchBlogList } from "../../store/blog";
+import { useSelector, useDispatch } from "react-redux"
 
-
+const renderBloglist = (blogList) => {
+    return (
+        <>
+            {blogList.map((blog, index) => (
+                <Blog key={blog.id} index={index} blog={blog} />
+            ))}
+        </>
+    )
+}
 const Blogs = () => {
+    const dispatch = useDispatch();
+    const {postList, isLoading}= useSelector(state=>state.blog);
 
     const blogPosts = [
         {
@@ -42,7 +54,7 @@ const Blogs = () => {
             created_at: '10th Apr 2022'
         },
 
-        {   
+        {
             id: 2,
             title: "Algorithm",
             body: `The word Algorithm means “a process 
@@ -78,12 +90,16 @@ const Blogs = () => {
 
     ];
 
+    useEffect(() => {
+        dispatch(fetchBlogList())
+    })
 
     return (
         <div style={{ marginTop: '140px' }}>
-            {blogPosts.map((blog, index) => (
-                <Blog key={blog.id} index={index} blog={blog} />
-            ))}
+            {isLoading ? <h1> Loading...</h1> : (
+                renderBloglist(postList)
+            )}
+
         </div>
     )
 }
