@@ -3,14 +3,15 @@ import { styled } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepPurple } from '@mui/material/colors';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const CardDiv = styled('div')(({ theme, color = "#6065D8" }) => ({
     backgroundColor: '#fff',
-    width: '945px',
-    minHeight: '800px',
+
     margin: 'auto',
     paddingBottom: '30px'
+
 }));
 
 const ImgDiv = styled('img')(({ theme, color = "#6065D8" }) => ({
@@ -26,7 +27,8 @@ const TitleStyle = styled('p')(() => ({
     fontSize: '30px',
     fontStyle: 'normal',
     fontFamily: 'Be Vietnam Pro',
-    lineHeight: '52px'
+    lineHeight: '52px',
+    cursor: 'pointer'
 }));
 
 const ContentStyle = styled('p')(({ theme, color = "#6065D8" }) => ({
@@ -53,13 +55,15 @@ const DateStyle = styled('p')(({ theme, color = "#6065D8" }) => ({
 
 
 const Blog = ({ blog: { title, body,
-    imgUrl, author, created_at }, index }) => {
+    imgUrl, author, created_at, id }, index }) => {
     console.log(title, body, 'dta')
-    return (
+    const navigate = useNavigate();
 
+
+    return (
         <CardDiv>
-            <ImgDiv src={imgUrl} />
-            <TitleStyle>{title}</TitleStyle>
+            {imgUrl ? <ImgDiv src={imgUrl} /> : null}
+            <TitleStyle onClick={() => { navigate(`/details/${id}`) }}>{title}</TitleStyle>
             <ContentStyle>{body}</ContentStyle>
             <Stack direction="row" spacing={2}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 46, height: 46, bgcolor: deepPurple[500] }} />
@@ -67,7 +71,6 @@ const Blog = ({ blog: { title, body,
                 <DateStyle><span>&#x2022; </span> {created_at}</DateStyle>
             </Stack>
         </CardDiv>
-
     )
 }
 

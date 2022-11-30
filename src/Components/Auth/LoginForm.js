@@ -1,5 +1,5 @@
 import { useForm, Controller } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   StyledFormGroup,
   StyledLabel,
@@ -12,6 +12,7 @@ import { TextField } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginUser } from "../../store/auth";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -22,11 +23,15 @@ const LoginForm = () => {
   const { control, handleSubmit, formState: { errors }, } = useForm({
     resolver: yupResolver(schema),
   });
-  const onSubmit = data => console.log(data);
 
+  const dispatch = useDispatch()
 
+  const { isLoading } = useSelector((state) => state.auth);
 
-  const { isSigningIn } = useSelector((state) => state.auth);
+  const onSubmit = data => {
+    console.log(data)
+    dispatch(LoginUser(data))
+  };
 
   return (
     <div>
@@ -87,7 +92,7 @@ const LoginForm = () => {
           />
         </StyledFormGroup>
         <StyledButton>
-          {isSigningIn ? <CircularProgress sx={{ color: "#fff" }} /> : "Login"}
+          {isLoading ? <CircularProgress sx={{ color: "#fff" }} /> : "Login"}
         </StyledButton>
       </form>
     </div>
