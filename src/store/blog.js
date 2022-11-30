@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiWithToken = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "http://15.207.8.22:8005",
     timeout: 15000,
     headers: {
         "Content-Type": "Application/json",
