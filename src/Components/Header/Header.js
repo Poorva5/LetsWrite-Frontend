@@ -158,7 +158,7 @@ function ResponsiveAppBar() {
                         >
                             About us
                         </Button>
-
+                        
                         {token ? (
                             <>
                                 <Tooltip title="Open settings">
@@ -182,11 +182,6 @@ function ResponsiveAppBar() {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {/* {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))} */}
 
                                     <MenuItem key={""} onClick={navigateToProfile}>
                                         <Typography textAlign="center">{settings[0]}</Typography>
