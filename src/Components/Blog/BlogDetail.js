@@ -60,13 +60,19 @@ const DateStyle = styled('p')(({ theme, color = "#6065D8" }) => ({
 
 const BlogDetails = () => {
     const { id } = useParams();
+
     const dispatch = useDispatch();
-    console.log(id, 'di is here')
+
     useEffect(() => {
         dispatch(fetchBlog(id));
     }, [])
+
     const { post } = useSelector(state => state.blog);
+
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("accessToken")
+
     return (
         <div style={{ marginTop: '100px' }}>
             <CardDiv>
@@ -76,12 +82,13 @@ const BlogDetails = () => {
                 </div>
                 <Stack direction="row" spacing={2}>
                     <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 46, height: 46, bgcolor: deepPurple[500] }} />
-                    <h1 style={{ fontSize: '16px', lineHeight: '20px', fontWeight: '500', fontFamily: 'Be Vietnam Pro', alignItems: 'center', letterSpacing: '0.04rem', display: 'flex' }}>Suresh Kr</h1>
+                    <h1 style={{ fontSize: '16px', lineHeight: '20px', fontWeight: '500', fontFamily: 'Be Vietnam Pro', alignItems: 'center', letterSpacing: '0.04rem', display: 'flex' }}>{post?.email}</h1>
                     <DateStyle>&#x2022; {post?.created_at}</DateStyle>
                 </Stack>
                 <TitleStyle>{post?.title}</TitleStyle>
                 {post?.imgUrl ? <ImgDiv src="https://media.geeksforgeeks.org/img-practice/banner/diving-into-excel-thumbnail.png" /> : null}
                 <ContentStyle>{post?.body}</ContentStyle>
+                {token ? (<><h1>Hiii I am authenticated</h1></>) : null}
             </CardDiv>
         </div >
     )

@@ -1,10 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import { deepPurple } from '@mui/material/colors';
 import { styled } from "@mui/material";
 import ProfileTab from './ProfileTab';
 import CakeIcon from '@mui/icons-material/Cake';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import { fetchUserDetail } from '../../store/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from "react";
 
 
 const UserDetail = styled('h3')(({ theme, color = "#6065D8" }) => ({
@@ -64,6 +67,15 @@ const SaveButton = styled('button')(({ theme, color = "#6065D8" }) => ({
 
 const UserProfile = () => {
 
+    const { id } = useParams();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUserDetail(id));
+    }, [id])
+
+    const { myDetails } = useSelector(state => state.auth);
+
     const navigate = useNavigate();
 
     const navigateToCreateBlog = () => {
@@ -76,7 +88,7 @@ const UserProfile = () => {
                 <div style={{ display: 'flex' }}>
                     <Avatar alt="Shammy Roy" src="/static/images/avatar/1.jpg" sx={{ width: 96, height: 96, bgcolor: deepPurple[500], fontSize: '40px' }} />
                     <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '20px' }}>
-                        <UserNameDiv>Suresh Kr</UserNameDiv>
+                        <UserNameDiv>{myDetails?.first_name}</UserNameDiv>
                         <div>
                             <UserDetail>Nunc ac interdum imperdiet leo, molestie lorem eu. In elementum, condimentum blandit morbi. Aliquet condimentum</UserDetail>
                         </div>

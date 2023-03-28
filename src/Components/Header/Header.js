@@ -16,7 +16,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import './Header.css';
 import LoginModal from '../Auth/LoginModal';
 import SignUpModal from '../Auth/SignUpModal';
-import { useDispatch, useSelector } from "react-redux";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

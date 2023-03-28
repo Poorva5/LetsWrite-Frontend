@@ -37,7 +37,7 @@ const SignUpForm = () => {
             password2: data['password2'],
             last_name: data['last_name'],
             first_name: data['first_name'],
-            username: data['1']
+            username: data['email']
         }
         console.log(formData, 'formdata');
         dispatch(SignUpUser(formData))

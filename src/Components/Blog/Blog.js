@@ -53,12 +53,10 @@ const DateStyle = styled('p')(({ theme, color = "#6065D8" }) => ({
     alignItems: 'center'
 }));
 
-
 const Blog = ({ blog: { title, body,
-    imgUrl, author, created_at, id }, index }) => {
+    imgUrl, author, created_at, id, email, first_name }, index }) => {
     console.log(title, body, 'dta')
     const navigate = useNavigate();
-
 
     return (
         <CardDiv>
@@ -67,7 +65,7 @@ const Blog = ({ blog: { title, body,
             <ContentStyle>{body}</ContentStyle>
             <Stack direction="row" spacing={2}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: 46, height: 46, bgcolor: deepPurple[500] }} />
-                <h1 style={{ fontSize: '16px', lineHeight: '20px', fontWeight: '500', fontFamily: 'Be Vietnam Pro', alignItems: 'center', letterSpacing: '0.04rem', display: 'flex' }}>{author}</h1>
+                <h1 style={{ fontSize: '16px', lineHeight: '20px', fontWeight: '500', fontFamily: 'Be Vietnam Pro', alignItems: 'center', letterSpacing: '0.04rem', display: 'flex' }}>{email}</h1>
                 <DateStyle><span>&#x2022; </span> {created_at}</DateStyle>
             </Stack>
         </CardDiv>
