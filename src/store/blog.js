@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const apiWithToken = axios.create({
-    baseURL: "http://15.207.8.22:8005",
+    baseURL: "http://13.50.238.143:8000",
+    // baseURL: "http://127.0.0.1:8000/",
     timeout: 15000,
     headers: {
         "Content-Type": "Application/json",
@@ -10,6 +11,14 @@ const apiWithToken = axios.create({
     // xsrfCookieName: "csrftoken",
     // xsrfHeaderName: "X-CSRFTOKEN",
 });
+
+const apiWithoutToken = axios.create({
+    baseURL: "http://13.50.238.143:8000",
+    // baseURL: "http://127.0.0.1:8000/",
+    timeout: 15000
+});
+
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const blogSlice = createSlice({
@@ -48,7 +57,7 @@ export function fetchBlogList(data) {
     ) {
         dispatch(setLoading());
         try {
-            const res = await apiWithToken.get(
+            const res = await apiWithoutToken.get(
                 "/api/post/list/",
             );
             console.log(res.data)
@@ -69,7 +78,7 @@ export function fetchBlog(id) {
     ) {
         dispatch(setLoading());
         try {
-            const res = await apiWithToken.get(
+            const res = await apiWithoutToken.get(
                 `/api/post/detail/${id}`,
             );
             console.log(res.data)
@@ -91,7 +100,7 @@ export function createBlog(data) {
         try {
             const res = await apiWithToken.post(
                 `/api/post/create/`,
-                (data = data)
+                data
             );
             console.log(res.data)
             // dispatch(setBlog(res.data))

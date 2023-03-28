@@ -16,7 +16,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import './Header.css';
 import LoginModal from '../Auth/LoginModal';
 import SignUpModal from '../Auth/SignUpModal';
-import { useDispatch, useSelector } from "react-redux";
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -158,7 +157,6 @@ function ResponsiveAppBar() {
                         >
                             About us
                         </Button>
-                        
                         {token ? (
                             <>
                                 <Tooltip title="Open settings">
@@ -182,6 +180,11 @@ function ResponsiveAppBar() {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
+                                    {/* {settings.map((setting) => (
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">{setting}</Typography>
+                                </MenuItem>
+                            ))} */}
 
                                     <MenuItem key={""} onClick={navigateToProfile}>
                                         <Typography textAlign="center">{settings[0]}</Typography>

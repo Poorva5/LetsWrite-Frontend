@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const apiWithoutToken = axios.create({
-    baseURL: "http://15.207.8.22:8005",
+    baseURL: "http://13.50.238.143:8000",
+    // baseURL: "http://127.0.0.1:8000/",
     timeout: 15000,
     headers: {
         "Content-Type": "Application/json",
@@ -9,6 +10,17 @@ const apiWithoutToken = axios.create({
     xsrfCookieName: "csrftoken",
     xsrfHeaderName: "X-CSRFTOKEN",
 });
+
+const apiWithToken = axios.create({
+    baseURL: "http://13.50.238.143:8000",
+    // baseURL: "http://127.0.0.1:8000/",
+    timeout: 15000,
+    headers: {
+        "Content-Type": "Application/json",
+        "Authorization": `Token ${localStorage.getItem('accessToken')}`
+    }
+});
+
 const { createSlice } = require("@reduxjs/toolkit");
 
 const authSlice = createSlice({
@@ -18,11 +30,12 @@ const authSlice = createSlice({
         loading: false,
         user: {},
         accessToken: '',
-        isAuthorised: false
+        isAuthorised: false,
+        myDetails: {},
     },
 
     reducers: {
-
+        // reducers are function that are used to update the state
         setUser: (state, action) => {
             state.user = action.payload;
         },
@@ -34,14 +47,16 @@ const authSlice = createSlice({
             localStorage.setItem('accessToken', action.payload.key)
             state.accessToken = action.payload.key;
         },
-
         setAuthorized: (state, action) => {
             state.isAuthorised = action.payload
+        },
+        fetchMyDetails: (state, action) => {
+            state.myDetails = action.payload;
         }
     }
 
 })
-export const { setUser, setLoading, login, setAuthorized } = authSlice.actions;
+export const { setUser, setLoading, login, setAuthorized, fetchMyDetails } = authSlice.actions;
 
 export default authSlice.reducer;
 
@@ -54,7 +69,7 @@ export function LoginUser(data) {
         try {
             const res = await apiWithoutToken.post(
                 "/dj-rest-auth/login/",
-                (data = data)
+                data
             );
             console.log(res.data)
             dispatch(login(res.data))
@@ -77,9 +92,8 @@ export function SignUpUser(data) {
         try {
             const res = await apiWithoutToken.post(
                 "/dj-rest-auth/registration/",
-                (data = data)
+                data
             );
-            console.log(res.data)
             dispatch(login(res.data))
             dispatch(setAuthorized(true));
             dispatch(setLoading());
@@ -91,25 +105,20 @@ export function SignUpUser(data) {
     };
 }
 
-export function fetchUserDetail(data) {
-    return async function SignUpThunk(
-        dispatch,
-        getState
+export function fetchUserDetail(id) {
+    return async function fetchUserDetailThunk(
+        dispatch
     ) {
         dispatch(setLoading());
         try {
-            const res = await apiWithoutToken.post(
-                "/dj-rest-auth/registration/",
-                (data = data)
+            const res = await apiWithToken.get(
+                `/api/user/${id}/profile/`
             );
             console.log(res.data)
-            dispatch(login(res.data))
-            dispatch(setAuthorized(true));
+            dispatch(fetchMyDetails(res.data))
             dispatch(setLoading());
-            window.location.href = '/'
         } catch (err) {
-            dispatch(setLoading());
-            dispatch(setAuthorized(false))
+            dispatch(setLoading())
         }
     };
 }

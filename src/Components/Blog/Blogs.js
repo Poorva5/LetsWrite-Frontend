@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import Blog from './Blog';
 import { fetchBlogList } from "../../store/blog";
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux";
+
 
 const renderBloglist = (blogList) => {
     return (
@@ -12,13 +13,15 @@ const renderBloglist = (blogList) => {
         </>
     )
 }
+
+
 const Blogs = () => {
     const dispatch = useDispatch();
     const { postList, isLoading } = useSelector(state => state.blog);
-    
+
     useEffect(() => {
-        dispatch(fetchBlogList())
-    }, [])
+        dispatch(fetchBlogList())   
+    }, [dispatch])
 
     return (
         <div style={{ margin: '150px 150px' }}>

@@ -43,5 +43,3 @@ export const StyledButton = styled('button')(({ theme, color = "#6065D8" }) => (
 }));
 
 
-
-
