@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const apiWithoutToken = axios.create({
-    // baseURL: "http://15.207.8.22:8005",
-    baseURL: "http://127.0.0.1:8000/",
+    baseURL: "http://13.50.238.143:8000",
+    // baseURL: "http://127.0.0.1:8000/",
     timeout: 15000,
     headers: {
         "Content-Type": "Application/json",
@@ -12,8 +12,8 @@ const apiWithoutToken = axios.create({
 });
 
 const apiWithToken = axios.create({
-    // baseURL: "http://15.207.8.22:8005",
-    baseURL: "http://127.0.0.1:8000/",
+    baseURL: "http://13.50.238.143:8000",
+    // baseURL: "http://127.0.0.1:8000/",
     timeout: 15000,
     headers: {
         "Content-Type": "Application/json",

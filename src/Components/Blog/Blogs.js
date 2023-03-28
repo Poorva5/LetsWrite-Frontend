@@ -21,7 +21,7 @@ const Blogs = () => {
 
     useEffect(() => {
         dispatch(fetchBlogList())   
-    }, [])
+    }, [dispatch])
 
     return (
         <div style={{ margin: '150px 150px' }}>

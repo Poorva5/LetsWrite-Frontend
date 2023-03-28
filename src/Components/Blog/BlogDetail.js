@@ -88,7 +88,7 @@ const BlogDetails = () => {
                 <TitleStyle>{post?.title}</TitleStyle>
                 {post?.imgUrl ? <ImgDiv src="https://media.geeksforgeeks.org/img-practice/banner/diving-into-excel-thumbnail.png" /> : null}
                 <ContentStyle>{post?.body}</ContentStyle>
-                {token ? (<><h1>Hiii I am authenticated</h1></>) : null}
+                {token ? (<><h6>Create blog</h6></>) : null}
             </CardDiv>
         </div >
     )

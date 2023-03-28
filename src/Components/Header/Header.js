@@ -157,7 +157,6 @@ function ResponsiveAppBar() {
                         >
                             About us
                         </Button>
-
                         {token ? (
                             <>
                                 <Tooltip title="Open settings">
